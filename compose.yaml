@@ -1,0 +1,13 @@
+services:
+  web:
+    build: ./web
+    ports:
+      - "3003:3003"
+
+  api:
+    build: ./API
+    ports:
+      - "3000:3000"
+ 
+  database:
+    build: ./Backend

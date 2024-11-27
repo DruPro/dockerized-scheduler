@@ -1,0 +1,159 @@
+*{  font-family: "Lato", Helvetica;
+    font-weight: 400;
+    color: #F2F0EF;
+    margin:  1;
+    padding: 1;
+}
+
+ul {
+    padding: 0;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+
+.main-content {
+    display: flex;
+    width: 80%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 90%;
+    background-color: transparent;
+    border-radius: 15px;
+    padding: 2%;
+    padding-top: 10px;
+    padding-bottom: 1px;
+}
+
+.results {
+    width: 100%;
+    margin: 3px;
+    padding: 10px;
+    height: auto;
+    background-color: #272727;
+    border-radius: 20px;
+}
+
+
+.results-list{
+    width: 100%;
+    height: 400px;
+    overflow-y: auto;
+}
+
+.results-list::-webkit-scrollbar {
+    width: 15px;
+  }
+  
+  .results-list::-webkit-scrollbar-thumb {
+    background-color: #bababa;
+    border-radius: 10px;
+  }
+  
+  .results-list::-webkit-scrollbar-track {
+    background-color: #3b3b3b41;
+  }
+
+.intern-headers {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    height: 50px;
+    width: 100%;
+    background-color: #272727;
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    border-bottom: 1px solid #646464;
+    position: sticky;
+    top: 0;
+}
+
+.intern-heading {
+    display: flex;
+    width: 100%;
+    font-size: 30px;
+}
+
+.invisible-green-button {
+    width: 25px;
+    opacity: 0;
+}
+
+.invisible-red-button {
+    width: 65px;
+    opacity: 0;
+}
+
+.intern {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 40px;
+}
+
+.intern-name, .intern-department, .intern-location {
+    width: 200px;
+    display: flex;
+}
+
+.intern-name {
+    font-weight: 500;
+}
+
+.intern-department, .intern-location {
+    font-weight: 200;
+}
+
+.every-other-background {
+    background-color: #454545;
+    border-radius: 10px;
+}
+
+.result-buttons{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    width: 100%;
+}
+
+.edit-button{
+    width: 60px;
+    height: 40px;
+    border-style: none;
+    border-color:  none;
+    border-radius: 50px;
+    background-color: #292929;
+    border: 1px solid #454545;
+    font-weight: 300;
+}
+
+.download-pdf-button{
+background-color: #38a169;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-right: 1%;
+}
+
+.save-button {
+    background-color: #38a169;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: 1%;
+    display: none;
+}
