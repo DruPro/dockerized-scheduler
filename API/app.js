@@ -4,7 +4,7 @@ const cors = require("cors");
 let express = require("express")
 let app = express()
 let port = 3000;
-let database = '172.17.0.2';
+let databaseurl = 'database';
 
 app.use(cors({
   origin: 'http://localhost:3003',  // Allow only requests from this origin
@@ -15,7 +15,8 @@ app.use(cors({
 app.get('/intern', async (req, res) => {
     try {
       // Fetch the data from /get-intern
-      const internResponse = await axios.get('http://'+'172.17.0.2'+':3000/get-interns');
+      console.log("Fetching From DATABASE")
+      const internResponse = await axios.get('http://'+ databaseurl +':3000/get-interns');
       res.json(internResponse.data);  // Send the data received from /get-intern
     } catch (error) {
       console.error('Error fetching data from /get-intern:', error);
@@ -23,4 +24,4 @@ app.get('/intern', async (req, res) => {
     }
   });
   
-  app.listen(port,()=>{console.log(`SERVER | Port | ${port}`)})
+  app.listen(port,()=>{console.log(`API Active | Port | ${port}`)})

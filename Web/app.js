@@ -17,5 +17,5 @@ app.get("/results.html",(req,res)=>{
     res.sendFile(path.join(__dirname,"results.html"))
 })
 app.listen(port,()=>{
-    console.log(`Web Server: Port: ${port}  `)
+    console.log(`WEB Server Active | Port | ${port}`)
 })

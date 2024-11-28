@@ -11,6 +11,7 @@ const internsFilePath = path.join(__dirname, 'database','public', 'interns.json'
 
 // Create a GET route to send the interns.json file
 app.get('/get-interns', (req, res) => {
+    console.log("Recived API Request")
     res.sendFile(internsFilePath, (err) => {
         if (err) {
             console.error('Error sending interns.json:', err);
@@ -21,5 +22,5 @@ app.get('/get-interns', (req, res) => {
 
 // Start the server
 app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}`);
+    console.log(`DATABASE Active | Port | ${port}`);
 });
