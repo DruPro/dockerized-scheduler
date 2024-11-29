@@ -1,4 +1,4 @@
-name: Docker Compose 
+name: Docker Compose
 
 on:
   push:
@@ -11,19 +11,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - name: Run docker-compose
+      # Use hoverkraft-tech/compose-action to run docker-compose
+      - name: Run docker-compose up (build & start containers)
         uses: hoverkraft-tech/compose-action@v2.0.1
         with:
-          cwd: "${{github.workspace}}"
-          compose-file: "docker-compose.yml"
+          compose-file: "docker-compose.yml"  # This points to the root file by default
 
+      # Example of running tests in the services (if needed)
       - name: Execute tests in the running services
         run: |
-          docker-compose up --build
+          docker-compose exec <service_name> ./run-tests.sh  # Adjust with your test command
 
-      - name: Gracefull Shutdown
+      # Gracefully shut down the services
+      - name: Graceful Shutdown
         run: |
           docker-compose down
-        
