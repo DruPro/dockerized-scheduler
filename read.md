@@ -21,7 +21,7 @@ Hello! Welcome to the **Bizz Nest Scheduler App**—a complete fullstack applica
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-repo/bizz-nest-scheduler.git
+   git clone https://github.com/DruPro/dockerized-scheduler
    cd bizz-nest-scheduler
    ```
 
