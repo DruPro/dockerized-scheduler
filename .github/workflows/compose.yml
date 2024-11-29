@@ -23,6 +23,7 @@ jobs:
       - name: Run docker-compose up (build & start containers)
         uses: hoverkraft-tech/compose-action@v2.0.1
         with:
+          cwd: "${{ github.workspace }}/../"
           compose-file: "docker-compose.yml"  # This should point to the root file by default
 
       # Example of running tests in the services (if needed)
