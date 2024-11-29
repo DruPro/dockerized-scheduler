@@ -1,1 +1,40 @@
+on:
+  push:
+    branches:
+      - production
 
+jobs:
+  docker-compose-test:
+    runs-on: ubuntu-latest
+    steps: 
+    - name: Check Out Respository
+      uses: actions/checkout@v4.2.2
+
+    - name: Setup Up Docker Depencies
+      uses: docker/setup-buildx-action@v3.7.1
+    
+    - name: Set up Docker Compose
+      uses: docker/setup-docker@v2
+
+      with:
+        version: "23.0.1"
+
+    - name: Build and start containers with Docker Compose
+      run: |
+        docker-compose -f docker-compose.yml up -d  # Use your docker-compose file path
+        docker-compose ps  # Verify the containers are running
+
+    - name: Wait for containers to be stable (optional)
+      run: |
+        sleep 10  # Adjust as needed depending on your container startup time
+
+    - name: Check if containers are working
+      run: |
+        # Check if the containers are healthy
+        docker-compose ps  # This will show container statuses
+        docker-compose logs  # Optionally view logs to check for errors
+        docker-compose exec <container_name> curl -f http://localhost:<port>  # Test if the container is responding on a given port
+
+    - name: Tear down containers
+      run: |
+        docker-compose down
