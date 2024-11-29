@@ -1,0 +1,36 @@
+name: Docker Compose
+
+on:
+  push:
+    branches: [ "production" ]
+  pull_request:
+    branches: [ "production" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Debugging step to list files and confirm that docker-compose.yml is in the root
+      - name: List files for debugging
+        run: |
+          ls -alh /home/runner/work/dockerized-scheduler/dockerized-scheduler
+
+      # Use hoverkraft-tech/compose-action to run docker-compose
+      - name: Run docker-compose up (build & start containers)
+        uses: hoverkraft-tech/compose-action@v2.0.1
+        with:
+          compose-file: "docker-compose.yml"  # This should point to the root file by default
+
+      # Example of running tests in the services (if needed)
+      - name: Execute tests in the running services
+        run: |
+          docker-compose exec <service_name> ./run-tests.sh  # Adjust with your test command
+
+      # Gracefully shut down the services
+      - name: Graceful Shutdown
+        run: |
+          docker-compose down
