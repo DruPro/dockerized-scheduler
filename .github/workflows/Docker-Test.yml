@@ -1,0 +1,21 @@
+
+on:
+  push:
+    branches:
+      production
+    
+jobs:
+  docker-start: 
+    runs-on: ubuntu-latest
+    steps:
+    - name: Docker Setup Buildx
+      uses: docker/setup-buildx-action@v3.7.1
+    - name: Creating API Container
+      run: | 
+        docker build -t test_api:v1 ./API
+        docker run --name api_instance -d test_api:v1
+        docker ps
+    - name: Closing API
+      run: |
+        docker api_instance stop
+      
