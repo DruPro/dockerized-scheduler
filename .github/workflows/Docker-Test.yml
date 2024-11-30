@@ -14,6 +14,15 @@ jobs:
     - name: Docker Setup Buildx
       uses: docker/setup-buildx-action@v3.7.1
 
+    - name: Closing Any Previous Containers.
+      run: | 
+        echo "Closing API Container"
+        docker stop api_instance  # Corrected syntax for stopping the container
+        echo "Closing Web Container"
+        docker stop web_instance  # Corrected syntax for stopping the container
+        echo "Closing Database Container"
+        docker stop database_instance  # Corrected syntax for stopping the container
+        
     - name: Creating API|WEBSERVER|DATABASE Containers
       run: | 
         docker build -t test_api:v1 ./API  # Correct path to the API directory
