@@ -18,7 +18,7 @@ jobs:
       run: | 
         docker build -t test_api:v1 ./API  # Correct path to the API directory
         docker build -t test_web:v1 ./Web  # Correct path to the Web directory
-        docker build -t test_database:v1 ./Database  # Correct path to the Database directory 
+        docker build -t test_database:v1 ./Backend  # Correct path to the Database directory 
         
         docker run --name api_instance -d test_api:v1
         echo "API Instance Is Succesfull" 
