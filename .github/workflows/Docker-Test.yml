@@ -28,7 +28,7 @@ jobs:
         echo "API Instance Is Succesfull" 
         docker run --name web_instance -d test_web:v1
         echo "WEB Instance Is Succesfull" 
-        docker run --name web_instance -d test_database:v1
+        docker run --name database_instance -d test_database:v1
         echo "Database Instance Is Succesfull" 
         docker ps
 
