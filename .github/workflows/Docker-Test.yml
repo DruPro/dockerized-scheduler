@@ -14,12 +14,25 @@ jobs:
     - name: Docker Setup Buildx
       uses: docker/setup-buildx-action@v3.7.1
 
-    - name: Creating API Container
+    - name: Creating API|WEBSERVER|DATABASE Containers
       run: | 
         docker build -t test_api:v1 ./API  # Correct path to the API directory
+        docker build -t test_web:v1 ./Web  # Correct path to the Web directory
+        docker build -t test_database:v1 ./Database  # Correct path to the Database directory 
+        
         docker run --name api_instance -d test_api:v1
+        echo "API Instance Is Succesfull" 
+        docker run --name web_instance -d test_web:v1
+        echo "WEB Instance Is Succesfull" 
+        docker run --name web_instance -d test_database:v1
+        echo "Database Instance Is Succesfull" 
         docker ps
 
-    - name: Closing API
+    - name: Closing API|WEBSERVER|DATABASE Containers
       run: |
+        echo "Closing API Container"
         docker stop api_instance  # Corrected syntax for stopping the container
+        echo "Closing Web Container"
+        docker stop web_instance  # Corrected syntax for stopping the container
+        echo "Closing Database Container"
+        docker stop database_instance  # Corrected syntax for stopping the container
