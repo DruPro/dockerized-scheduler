@@ -1,21 +1,25 @@
-
 on:
   push:
     branches:
-      production
-    
+      - production
+
 jobs:
-  docker-start: 
+  docker-start:
     runs-on: ubuntu-latest
+
     steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3  # This step is necessary to ensure the repo is checked out
+
     - name: Docker Setup Buildx
       uses: docker/setup-buildx-action@v3.7.1
+
     - name: Creating API Container
       run: | 
-        docker build -t test_api:v1 ./API
+        docker build -t test_api:v1 ./API  # Correct path to the API directory
         docker run --name api_instance -d test_api:v1
         docker ps
+
     - name: Closing API
       run: |
-        docker api_instance stop
-      
+        docker stop api_instance  # Corrected syntax for stopping the container
