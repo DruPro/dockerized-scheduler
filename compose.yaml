@@ -1,13 +1,15 @@
 services:
   web:
-    build: ./WEB
-    ports:
-      - "3003:3003"
+    build: ./Web
 
   restapi:
     build: ./API
-    ports:
-      - "3000:3000"
  
   database:
-    build: ./BACKEND
+    build: ./Backend
+
+  proxy:
+    build: ./Proxy
+    ports:
+      - "80:80"
+      - "3000:3000"
