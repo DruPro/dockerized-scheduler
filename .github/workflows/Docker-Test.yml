@@ -45,12 +45,12 @@ jobs:
       run: |
         mkdir -p ~/.ssh
         echo $SSH_PRIVATE_KEY > ~/.ssh/id_rsa
-        chmod 400 ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
         ssh-keyscan ec2-18-236-74-56.us-west-2.compute.amazonaws.com > ~/.ssh/known_hosts
 
     - name: Connect to EC2 and execute commands
       run: |
-        ssh -o StrictHostKeyChecking=no ec2-user@ec2-18-236-74-56.us-west-2.compute.amazonaws.com << 'EOF'
+        ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ec2-user@ec2-18-236-74-56.us-west-2.compute.amazonaws.com << 'EOF'
         echo "Successfully connected to EC2!"
         # GO TO DIRECTORY CONTAINING GIT REPOSITORY
         cd /home/ec2-user/tst_dir/dockerized-scheduler
