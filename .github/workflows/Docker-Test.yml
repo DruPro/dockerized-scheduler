@@ -44,6 +44,7 @@ jobs:
     - name: Create SSH Key
       run: |
         mkdir -p ~/.ssh
+        touch ~/.ssh/alan.pem
         echo $SSH_KEY > ~/.ssh/alan.pem
         chmod 400 ~/.ssh/alan.pem
         ssh-keyscan ec2-18-236-74-56.us-west-2.compute.amazonaws.com > ~/.ssh/known_hosts
