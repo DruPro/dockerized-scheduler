@@ -1,16 +1,11 @@
 
 const { default: axios } = require("axios");
 const cors = require("cors");
-let express = require("express")
-let app = express()
-let port = 3000;
+const express = require("express")
+const app = express()
+const port = 3000;
 let databaseurl = 'database';
 
-app.use(cors({
-  origin: 'http://localhost:3003',  // Allow only requests from this origin
-  methods: ['GET', 'POST'],        // Optionally allow specific methods
-  allowedHeaders: ['Content-Type'] // Optionally specify allowed headers
-}));
 
 app.get('/intern', async (req, res) => {
     try {
