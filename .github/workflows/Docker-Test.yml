@@ -18,24 +18,21 @@ jobs:
       run: | 
         docker ps
         
-    - name: Creating API|WEBSERVER|DATABASE|PROXY Containers
+    - name: Creating API|WEBSERVER|DATABASE Containers
       run: | 
-        docker build -t test_api:v1 ./API  # Correct path to the API directory # Building Images
+        docker build -t test_api:v1 ./API  # Correct path to the API directory
         docker build -t test_web:v1 ./Web  # Correct path to the Web directory
         docker build -t test_database:v1 ./Backend  # Correct path to the Database directory 
-        docker build -t test_proxy:v1 ./Proxy # Correct path to the Proxy directory 
-
-        docker run --name api_instance -d test_api:v1 # Running containers from images
+        
+        docker run --name api_instance -d test_api:v1
         echo "API Instance Is Succesfull" 
         docker run --name web_instance -d test_web:v1
         echo "WEB Instance Is Succesfull" 
         docker run --name database_instance -d test_database:v1
         echo "Database Instance Is Succesfull" 
-        docker run --name proxy_instannce -d test_proxy:v1
-        echo "Proxy Instance Is Succesfull" 
         docker ps
 
-    - name: Closing API|WEBSERVER|DATABASE|PROXY Containers
+    - name: Closing API|WEBSERVER|DATABASE Containers
       run: |
         echo "Closing API Container"
         docker stop api_instance  # Corrected syntax for stopping the container
@@ -43,5 +40,26 @@ jobs:
         docker stop web_instance  # Corrected syntax for stopping the container
         echo "Closing Database Container"
         docker stop database_instance  # Corrected syntax for stopping the container
-        echo "Closing Proxy Container"
-        docker stop proxy_instance  # Corrected syntax for stopping the container
+
+    - name: Create SSH Key
+      run: |
+        mkdir -p ~/.shh
+        echo $SSH_PRIVATE_KEY > ~/.ssh/id_rsa
+        chmod 400 ~/.ssh/id_rsa
+        ssh-keyscan ec2-18-236-74-56.us-west-2.compute.amazonaws.com > ~/.ssh/known_hosts
+
+    - name: Connect to EC2 and execute commands
+      run: |
+        ssh -o StrictHostKeyChecking=no ec2-user@ec2-18-236-74-56.us-west-2.compute.amazonaws.com << 'EOF'
+        echo "Successfully connected to EC2!"
+        # GO TO DIRECTORY CONTAINING GIT REPOSITORY
+        cd /home/ec2-user/tst_dir/dockerized-scheduler
+        # SHUT DOWN CONTAINERS
+        sudo docker-compose down
+        # GET LATEST REPOSITORY
+        git pull
+        # BUILD NEW CONTAINERS
+        sudo docker-compose up --build
+        EOF
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
