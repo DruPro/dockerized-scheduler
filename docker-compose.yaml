@@ -12,4 +12,3 @@ services:
     build: ./Proxy
     ports:
       - "80:80"
-      - "3000:3000"

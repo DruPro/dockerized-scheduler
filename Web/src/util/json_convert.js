@@ -1,4 +1,4 @@
-export const json_array = await generate_array('http://ec2-18-236-74-56.us-west-2.compute.amazonaws.com:3000/intern'); 
+export const json_array = await generate_array('http://ec2-18-236-74-56.us-west-2.compute.amazonaws.com/intern'); 
 
 export async function generate_array(url) {
     const response = await fetch(url);
