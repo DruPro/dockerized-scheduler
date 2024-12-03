@@ -41,11 +41,9 @@ jobs:
         echo "Closing Database Container"
         docker stop database_instance  # Corrected syntax for stopping the container
 
-    - name: Create SSH Key
+    - name: Create PEM Key
       run: |
-        mkdir -p ~/.ssh
-        touch ~/.ssh/alan.pem
-        echo $SSH_KEY > ~/.ssh/alan.pem
+        echo $SSH_KEY > alan.pem
         chmod 400 ~/.ssh/alan.pem
         ssh-keyscan ec2-18-236-74-56.us-west-2.compute.amazonaws.com > ~/.ssh/known_hosts
       env:
@@ -53,7 +51,7 @@ jobs:
         
     - name: Connect to EC2 and execute commands
       run: |
-        ssh -i ~/.ssh/alan.pem ec2-user@ec2-18-236-74-56.us-west-2.compute.amazonaws.com /bin/bash <<'EOF'
+        ssh -i "alan.pem" ec2-user@ec2-18-236-74-56.us-west-2.compute.amazonaws.com /bin/bash <<'EOF'
         echo "Successfully connected to EC2!"
         # GO TO DIRECTORY CONTAINING GIT REPOSITORY
         cd /home/ec2-user/tst_dir/dockerized-scheduler
