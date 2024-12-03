@@ -16,28 +16,16 @@ jobs:
         mkdir -p ~/.ssh
         echo "$SSH_KEY" > ~/.ssh/alan.pem
         chmod 600 ~/.ssh/alan.pem
-        
-        # Check if the key is valid
-        openssl rsa -in ~/.ssh/alan.pem -check
-        
+
         # Add the EC2 instance to known_hosts
         ssh-keyscan ec2-18-236-74-56.us-west-2.compute.amazonaws.com >> ~/.ssh/known_hosts
         chmod 644 ~/.ssh/known_hosts
-    
-        # Debug: Check the first few lines of the private key (safely)
-        echo "Private Key Content (first 5 lines):"
-        echo "$SSH_KEY" | head -n 5
-    
-        # Ensure the file is correctly created and accessible
-        ls -l ~/.ssh/alan.pem
-        cat ~/.ssh/alan.pem | head -n 5  # This will show the first few lines of the key to verify format
-
       env:
         SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         
     - name: Connect to EC2 and execute commands
       run: |
-        ssh -vvv -i "alan.pem" ec2-user@ec2-18-236-74-56.us-west-2.compute.amazonaws.com /bin/bash <<'EOF'
+        ssh -vvv -i "/home/runner/.ssh/alan.pem" ec2-user@ec2-18-236-74-56.us-west-2.compute.amazonaws.com /bin/bash <<'EOF'
         echo "Successfully connected to EC2!"
         # GO TO DIRECTORY CONTAINING GIT REPOSITORY
         cd /home/ec2-user/tst_dir/dockerized-scheduler
