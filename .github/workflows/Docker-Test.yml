@@ -34,7 +34,7 @@ jobs:
         # GET LATEST REPOSITORY
         git pull
         # BUILD NEW CONTAINERS
-        sudo docker-compose up --build
+        sudo docker-compose up -d --build
         exit
         EOF
       env:
