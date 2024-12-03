@@ -44,7 +44,7 @@ jobs:
     - name: Create PEM Key
       run: |
         echo $SSH_KEY > alan.pem
-        chmod 400 ~/.ssh/alan.pem
+        chmod 400 "alan.pem"
         ssh-keyscan ec2-18-236-74-56.us-west-2.compute.amazonaws.com > ~/.ssh/known_hosts
       env:
         SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
