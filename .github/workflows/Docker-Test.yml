@@ -37,6 +37,10 @@ jobs:
         sudo docker-compose up -d --build
         exit
         EOF
-        rm -f ~/.ssh/alan.pem
       env:
         SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+
+    - name: Remove Secrets
+      run: |
+        echo "Removing Secrets"
+        rm -f ~/.ssh/alan.pem
